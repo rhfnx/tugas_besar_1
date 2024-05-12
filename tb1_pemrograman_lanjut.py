@@ -5,26 +5,33 @@ NIM: 41822010038
 
 import re
 
-first_input = input().rstrip().split()
-n = int(first_input[0])
-m = int(first_input[1])
+def get_input_matrix():
+    n, m = map(int, input().rstrip().split())
+    matrix = [input() for _ in range(n)]
+    return matrix, m
 
-matrix = []
-for _ in range(n):
-    matrix_items = input()
-    matrix.append(matrix_items)
+def decode_message(matrix, m):
+    decode_msg = ""
+    for i in range(m):
+        for j in range(len(matrix)):
+            try:
+                decode_msg += matrix[j][i]
+            except IndexError:
+                pass
+    return decode_msg
 
-decode_msg = ""
-for i in range(m):
-    for j in range(n):
-        try:
-            decode_msg += matrix[j][i]
-        except IndexError:
-            pass
+def clean_message(decode_msg):
+    pattern = r'(?<=[\w])[^\w]+(?=[\w])'
+    match_msg = re.findall(pattern, decode_msg)
+    for x in match_msg:
+        decode_msg = decode_msg.replace(x, ' ', 1)
+    return decode_msg
 
-pattern = r'(?<=[\w])[^\w]+(?=[\w])'
-match_msg = re.findall(pattern, decode_msg)
+def main():
+    matrix, m = get_input_matrix()
+    decoded_message = decode_message(matrix, m)
+    cleaned_message = clean_message(decoded_message)
+    print(cleaned_message)
 
-for x in match_msg:
-    decode_msg = decode_msg.replace(x, ' ', 1)
-print(decode_msg)
+if __name__ == "__main__":
+    main()
