@@ -32,21 +32,18 @@ def clean_message(decode_msg):
     decode_msg = decode_msg.replace(x, ' ', 1)
   return decode_msg
 
-def main():
-  filename = 'text.txt'
-  try:
+
+filename = 'text.txt'
+try:
     matrix, m = get_input_matrix(filename)
     decoded_message = decode_message(matrix, m)
     cleaned_message = clean_message((decoded_message))
 
     resultfile = open("result.txt","w")
-    
+
     resultfile.write(cleaned_message)
     resultfile.close()
-    
-    print(f"Decoded Message:\n{cleaned_message}\nThe result is writen in result.txt!")
-  except Exception as e:
-    print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-  main()
+    print(f"Decoded Message:\n{cleaned_message}\nThe result is writen in result.txt!")
+except Exception as e:
+    print(f"An error occurred: {e}")
